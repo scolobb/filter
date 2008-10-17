@@ -1,0 +1,10 @@
+FILTER TRANSLATOR FOR NSMUX
+
+filter is GNU/Hurd translator designed specifically to be used in
+namespace-based translator selection, that is with nsmux. When set on
+a file this translator will traverse the stack of static translators
+(which sit on the real filesystem node) and stop at the translator
+whose name matches the name provided to the filter on the command
+line. It will then read and write data using this translator, i.e. all
+translators sitting upon this translator and below the filter will be
+shunted.
