@@ -37,6 +37,7 @@
 /*----------------------------------------------------------------------------*/
 #include "debug.h"
 #include "options.h"
+#include "trace.h"
 /*----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*/
@@ -710,6 +711,15 @@ main
 		
 	netfs_root_node->nn_translated = netfs_root_node->nn_stat.st_mode;
 	
+	/*Filter the translator stack under ourselves*/
+	err = trace_find(underlying_node, "/hurd/m", O_READ, &target);
+	if(err)
+		error
+			(
+			EXIT_FAILURE, err,
+			"Could not trace the translator stack on the underlying node"
+			);
+			
 	netfs_root_node->nn->port = target;
 	
 	/*Update the timestamps of the root node*/
