@@ -69,6 +69,9 @@ mach_port_t target;
 /*The file to print debug messages to*/
 FILE * filter_dbg;
 /*----------------------------------------------------------------------------*/
+/*The name of the translator to filter out*/
+char * target_name = NULL;
+/*----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*/
 /*--------Functions-----------------------------------------------------------*/
@@ -635,13 +638,6 @@ netfs_S_file_get_translator_cntl
 	return err;
 	}/*netfs_S_file_get_translator_cntl*/
 /*----------------------------------------------------------------------------*/
-int
-netfs_demuxer
-	(
-	mach_msg_header_t * ing,
-	mach_msg_header_t * outp
-	);
-/*----------------------------------------------------------------------------*/
 /*Entry point*/
 int
 main
@@ -661,7 +657,9 @@ main
 	
 	/*Parse the command line arguments*/
 	argp_parse(&argp_startup, argc, argv, ARGP_IN_ORDER, 0, 0);
-	LOG_MSG("Command line arguments parsed.");
+	if(target_name == NULL)
+	  ;
+	LOG_MSG("Command line arguments parsed. Target name: '%s'.", target_name);
 	
 	/*Try to create the root node*/
 	err = node_create_root(&netfs_root_node);

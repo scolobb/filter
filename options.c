@@ -38,8 +38,9 @@
 /*----------------------------------------------------------------------------*/
 /*--------Macros--------------------------------------------------------------*/
 /*Short documentation for argp*/
-#define ARGS_DOC	""
-#define DOC 			"Filters the translator stack of the node it is set upon."
+#define ARGS_DOC	"TARGET-NAME"
+#define DOC 			"Finds the bottommost translator called TARGET-NAME in the \
+static stack of translators and reads and write to it."
 /*----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------*/
@@ -147,8 +148,18 @@ argp_parse_common_options
 				}
 			else
 				{
-/*TODO: Take care of runtime calls modifying the property*/
 				}
+				
+			break;
+			}
+		case ARGP_KEY_ARG: // the translator to filter out;
+			{
+			target_name = strdup(arg);
+			if(!target_name)
+				error(EXIT_FAILURE, ENOMEM, "argp_parse_common_options: "
+					"Could not strdup the translator name");
+
+			break;
 			}
 		/*If the option could not be recognized*/
 		default:

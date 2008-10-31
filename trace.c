@@ -165,7 +165,6 @@ trace_find
 			break;
 		
 		LOG_MSG("trace_find: Obtained translator '%s'", argz);
-		
 		if(strcmp(argz, name) == 0)
 			{
 			LOG_MSG("trace_find: Match. Stopping here.");
@@ -187,15 +186,16 @@ trace_find
 			uids, nuids, gids, ngids,
 			flags | O_NOTRANS, &retry, retry_name, &node
 			);
-			
+		
+		LOG_MSG("trace_find: fsys_getroot returned %d", (int)err);
 		LOG_MSG("trace_find: Translator root: %lu", (unsigned long)node);
 		
 		/*TODO: Remove this debug output.*/
-		/*char buf[256];
+		char buf[256];
 		char * _buf = buf;
 		size_t len = 256;
 		io_read(node, &_buf, &len, 0, len);
-		LOG_MSG("trace_find: Read: '%s'", buf);*/
+		LOG_MSG("trace_find: Read: '%s'", buf);
 		}
 		
 	/*If the error occurred (most probably) because of the fact that we
