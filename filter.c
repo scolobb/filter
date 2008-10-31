@@ -658,7 +658,28 @@ main
 	/*Parse the command line arguments*/
 	argp_parse(&argp_startup, argc, argv, ARGP_IN_ORDER, 0, 0);
 	if(target_name == NULL)
-	  ;
+		{
+		char * p = *argv + strlen(*argv);
+		
+		/*find where the name of this executable starts (it should match \-.*)*/
+		for(; p >= *argv; --p)
+			if(*p == '/')
+				{
+				if((p > *argv) && (p[-1] == '\\'))
+					continue; /*this is an escaped '/'*/
+				/*we've reached the beginning of the name*/
+				break;
+				}
+
+		if(*p == '/')
+			++p;
+		
+		if(*p == '-') /*actually, any filter translator must have a name starting
+									with '-'*/
+			++p;
+			
+		target_name = p;
+		}
 	LOG_MSG("Command line arguments parsed. Target name: '%s'.", target_name);
 	
 	/*Try to create the root node*/
