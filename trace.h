@@ -1,8 +1,8 @@
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /*trace.h*/
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /*The definitions for tracing the translator stack under ourselves.*/
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /*Copyright (C) 2001, 2002, 2005, 2008 Free Software Foundation, Inc.
   Written by Sergiu Ivanov <unlimitedscolobb@gmail.com>.
 
@@ -20,29 +20,25 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
   USA.*/
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 #ifndef __TRACE_H__
 #define __TRACE_H__
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 #include <error.h>
 #include <sys/types.h>
 #include <hurd/iohelp.h>
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 
-/*----------------------------------------------------------------------------*/
-/*--------Functions-----------------------------------------------------------*/
-/*Traces the translator stack on the given underlying node until it finds the
-	first translator called `name` and returns the port pointing to the
-	translator sitting under this one, opened as specified in `flags`.*/
+/*---------------------------------------------------------------------------*/
+/*--------Functions----------------------------------------------------------*/
+/*Traces the translator stack on the given underlying node until it
+  finds the first translator called `name` and returns the port
+  pointing to the translator sitting under this one, opened as
+  specified in `flags`.*/
 error_t
-trace_find
-	(
-	mach_port_t underlying,
-	const char * name,
-	int flags,
-	mach_port_t * port
-	);
+  trace_find
+  (mach_port_t underlying, const char *name, int flags, mach_port_t * port);
 /*----------------------------------------------------------------------------*/
 #endif /*__TRACE_H__*/
